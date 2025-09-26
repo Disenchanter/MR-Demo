@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fcee2c551b69548b213a73867cf8ee, type: 3}
+  m_Name: AcousticMatLibrary
+  m_EditorClassIdentifier: 
+  presets:
+  - {fileID: 11400000, guid: 1b8c3952741468b4a86ca1520524a693, type: 2}
+  - {fileID: 11400000, guid: 8a9dbb55e817ef945b9a1527e9311342, type: 2}
+  - {fileID: 11400000, guid: 456f76f5c4f63f24bb9575a056b8047a, type: 2}
+  - {fileID: 11400000, guid: 14d84739010995840a9b1104420be878, type: 2}
+  - {fileID: 11400000, guid: 9c52509fb42f61a4aa0e3a04324c227d, type: 2}
+  - {fileID: 11400000, guid: 72f7a377ccc42054e9e76cecb4abf474, type: 2}
