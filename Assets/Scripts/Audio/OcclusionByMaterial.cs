@@ -4,18 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(AudioLowPassFilter))]
 public class OcclusionByMaterial : MonoBehaviour
 {
-    [Header("监听者（一般拖 Main Camera）")]
+    [Header("Listener (usually drag Main Camera)")]
     public Transform listener;
 
-    [Header("遮挡用层（只勾选 Wall 层）")]
+    [Header("Occluder layers (check Wall layer only)")]
     public LayerMask occluderMask;
 
-    [Header("平滑过渡系数（越大越顺滑）")]
+    [Header("Smoothing factor (larger is smoother)")]
     public float smooth = 10f;
 
-    [Header("夹取上/下限（防极端值）")]
-    public float minCutoffLimit = 500f;     // 最低截止
-    public float maxVolumeLimit = 1.0f;     // 最高音量比例
+    [Header("Clamp limits (prevent extremes)")]
+    public float minCutoffLimit = 500f;     // Minimum cutoff
+    public float maxVolumeLimit = 1.0f;     // Maximum volume ratio
 
     private AudioSource src;
     private AudioLowPassFilter lpf;
@@ -38,7 +38,7 @@ public class OcclusionByMaterial : MonoBehaviour
         Vector3 dir = listener.position - transform.position;
         float dist  = dir.magnitude;
 
-        // 收集沿线所有命中（多面墙叠加）
+    // Collect all hits along the ray (multiple walls stack)
         Ray ray = new Ray(transform.position, dir.normalized);
         RaycastHit[] hits = Physics.RaycastAll(ray, dist, occluderMask);
 
@@ -61,7 +61,7 @@ public class OcclusionByMaterial : MonoBehaviour
                 }
                 else
                 {
-                    // 未挂材质时给个保守默认
+                    // Use conservative defaults when no material is attached
                     accumCutoff = Mathf.Min(accumCutoff, 1200f);
                     accumVolume *= 0.7f;
                 }
@@ -71,7 +71,7 @@ public class OcclusionByMaterial : MonoBehaviour
             targetVolume = Mathf.Min(accumVolume, maxVolumeLimit);
         }
 
-        // 平滑过渡
+    // Smooth interpolation
         src.volume = Mathf.Lerp(src.volume, targetVolume, Time.deltaTime * smooth);
         lpf.cutoffFrequency = Mathf.Lerp(lpf.cutoffFrequency, targetCutoff, Time.deltaTime * smooth);
     }

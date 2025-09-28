@@ -4,17 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(AudioLowPassFilter))]
 public class DistanceLowpass : MonoBehaviour
 {
-    [Header("监听者（一般拖 Main Camera）")]
+    [Header("Listener (usually drag Main Camera)")]
     public Transform listener;
 
-    [Header("低通截止频率范围")]
-    public float minCutoff = 600f;     // 距离很远时的最低截止
-    public float maxCutoff = 22000f;   // 很近时的最高截止
+    [Header("Low-pass cutoff range")]
+    public float minCutoff = 600f;     // Lowest cutoff at far distance
+    public float maxCutoff = 22000f;   // Highest cutoff when very close
 
-    [Header("作用距离（超过此值按最小截止）")]
+    [Header("Effective distance (beyond this uses min cutoff)")]
     public float maxDistance = 25f;
 
-    [Header("距离到截止频率的映射曲线（0=近,1=远）")]
+    [Header("Distance-to-cutoff curve (0=near,1=far)")]
     public AnimationCurve distanceToCutoff = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
     private AudioLowPassFilter lpf;
@@ -29,8 +29,8 @@ public class DistanceLowpass : MonoBehaviour
     {
         if (!listener) return;
         float d = Vector3.Distance(transform.position, listener.position);
-        float t = Mathf.Clamp01(d / maxDistance);      // 0 近 → 1 远
-        float k = distanceToCutoff.Evaluate(t);        // 曲线映射
+    float t = Mathf.Clamp01(d / maxDistance);      // 0 near -> 1 far
+    float k = distanceToCutoff.Evaluate(t);        // Curve mapping
         lpf.cutoffFrequency = Mathf.Lerp(minCutoff, maxCutoff, k);
     }
 }

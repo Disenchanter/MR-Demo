@@ -3,10 +3,10 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class AcousticMaterial : MonoBehaviour
 {
-    [Header("当前使用的预设")]
+    [Header("Current Preset")]
     public AcousticMaterialPreset preset;
 
-    // 提供给遮挡脚本读取的“只读快照”（运行时会同步更新）
+    // Read-only snapshot for occlusion scripts (kept in sync at runtime)
     [HideInInspector] public float volumeScale = 0.7f;
     [HideInInspector] public float cutoffHz   = 1200f;
     [HideInInspector] public float extraDb    = 0f;
@@ -35,16 +35,16 @@ public class AcousticMaterial : MonoBehaviour
         if (p == null || mr == null) return;
         preset = p;
 
-        // 同步参数快照（遮挡脚本直接读快照，避免频繁GetComponent）
+    // Sync parameter snapshot so occlusion scripts can read it without frequent GetComponent calls
         volumeScale = p.volumeScale;
         cutoffHz    = p.cutoffHz;
         extraDb     = p.extraDb;
         displayName = string.IsNullOrWhiteSpace(p.displayName) ? name : p.displayName;
 
-        // 仅通过 PropertyBlock 改颜色，不创建/替换材质资源（避免编辑器断言/材质实例泛滥）
+    // Change color via PropertyBlock only to avoid creating/replacing material assets (prevents editor assertions/material proliferation)
         mr.GetPropertyBlock(mpb);
         mpb.SetColor("_BaseColor", p.color); // URP/Lit
-        mpb.SetColor("_Color",     p.color); // 内置Standard
+    mpb.SetColor("_Color",     p.color); // Built-in Standard
         mr.SetPropertyBlock(mpb);
     }
 }
