@@ -22,7 +22,13 @@ MR Demo is a Unity project showcasing spatial audio behaviors for mixed reality 
 
 - **Space** – Switch to the next acoustic material preset.
 - **Shift + Space** – Switch to the previous preset.
-- **Number keys 1–9** – Jump directly to the corresponding preset index.
+- **Number keys 1–6** – Jump directly to the corresponding preset index:
+  - **1** – Brick
+  - **2** – Concrete  
+  - **3** – Curtain
+  - **4** – Drywall
+  - **5** – Glass
+  - **6** – Wood
 
 The HUD labels in the scene show the active preset for either the global controller or each wall.
 
